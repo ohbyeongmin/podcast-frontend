@@ -7,6 +7,13 @@
 // START Enums and Input Objects
 //==============================================================
 
+export enum Category {
+  Business = "Business",
+  Culture = "Culture",
+  Education = "Education",
+  News = "News",
+}
+
 export enum UserRole {
   Host = "Host",
   Listener = "Listener",
