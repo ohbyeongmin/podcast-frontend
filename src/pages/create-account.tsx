@@ -75,7 +75,7 @@ export const CreateAccount = () => {
 				<Helmet>
 					<title>Podcast | Create Account</title>
 				</Helmet>
-				<div className="flex bg-opacity-10  rounded-full bg-red-400  text-red-400 items-center justify-between max-w-lg w-full py-2 px-28 text-center mb-5">
+				<div className="flex bg-opacity-10  rounded-full bg-red-400  text-red-400 items-center justify-center max-w-lg w-full py-2 px-28 text-center mb-5">
 					<img src={podcastLogo} alt="podcast" className="w-16 " />
 					<span className=" font-semibold text-6xl">Podcast</span>
 				</div>
