@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ActiveMenuBar } from "./activeMenuBar";
+import { ActiveMenuBar } from "./active-menu-bar";
 
 interface ICategoryNavProps {
 	categories: string[];
@@ -8,15 +8,20 @@ interface ICategoryNavProps {
 
 export const CategoryNav: React.FC<ICategoryNavProps> = ({ categories }) => {
 	const categoryNavRef = useRef<HTMLDivElement>(null);
-	const location = useLocation().pathname.slice(1);
+	const location = useLocation().pathname;
+	const pathName = location.split("/")[2];
 
 	return (
-		<div className="w-full bg-red-400 bg-opacity-10 border-b-2 border-red-200">
-			<ActiveMenuBar categoryNavRef={categoryNavRef} pathName={location} />
-			<ul className="grid grid-cols-5 items-center max-w-md mx-auto text-sm font-md text-red-400">
+		<div className="w-full bg-trueGray-900 border-b-2 border-black">
+			{(categories.includes(pathName) || location === "/") && (
+				<ActiveMenuBar categoryNavRef={categoryNavRef} pathName={pathName} />
+			)}
+			<ul
+				className={`grid grid-cols-${categories.length} items-center max-w-md mx-auto text-sm font-md text-red-500`}
+			>
 				{categories.map((category, index) => (
 					<div key={index} ref={categoryNavRef}>
-						<Link to={category === "All" ? "/" : `/${category}`}>
+						<Link to={category === "All" ? "/" : `/category/${category}`}>
 							<li className="py-2 text-center cursor-pointer">{category}</li>
 						</Link>
 					</div>

@@ -1,19 +1,27 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Route,
+	Switch,
+	Redirect,
+} from "react-router-dom";
 import { NotFound } from "../pages/404";
-import { PodcastList } from "../pages/podcastList";
+import { PodcastList } from "../pages/listener/podcast-list";
 import { Header } from "../components/header";
 import { useMe } from "../hooks/useMe";
-import { CategoryPage } from "../pages/category-page";
-import { PodcastDetail } from "../pages/podcastDetail";
+import { CategoryPage } from "../pages/listener/category-page";
+import { PodcastDetail } from "../pages/listener/podcast-detail";
 import { CategoryNav } from "../components/category-nav";
 import { Category } from "../__generated__/globalTypes";
+import { UserProfile } from "../pages/me-profile";
+
+const listenerCategories = ["All", ...Object.values(Category)];
 
 const ListenerRoutes = [
 	<Route key="1" path="/" exact>
 		<PodcastList />
 	</Route>,
-	<Route key="2" path="/:category" exact>
+	<Route key="2" path="/category/:category" exact>
 		<CategoryPage />
 	</Route>,
 	<Route key="3" path="/podcast/:id" exact>
@@ -21,7 +29,14 @@ const ListenerRoutes = [
 	</Route>,
 ];
 
-const categories = ["All", ...Object.values(Category)];
+const HostRoutes = [
+	<Route key="1" path="/" exact>
+		<Redirect to="/dashboard" />
+	</Route>,
+	<Route path="/dashboard">
+		<div>dashboard</div>
+	</Route>,
+];
 
 export const LoggedInRouter = () => {
 	const { data, error, loading } = useMe();
@@ -37,9 +52,17 @@ export const LoggedInRouter = () => {
 	return (
 		<Router>
 			<Header />
-			<CategoryNav categories={categories} />
+			{data?.me.role === "Listener" && (
+				<CategoryNav categories={listenerCategories} />
+			)}
 			<Switch>
-				{data?.me.role === "Listener" && ListenerRoutes}
+				{data?.me.role === "Listener" ? ListenerRoutes : HostRoutes}
+				<Route path="/edit-profile" exact>
+					<UserProfile />
+				</Route>
+				<Route path="/profile/:id">
+					<UserProfile />
+				</Route>
 				<Route>
 					<NotFound />
 				</Route>

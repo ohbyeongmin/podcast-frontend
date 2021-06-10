@@ -13,6 +13,7 @@ export interface meQuery_me {
   __typename: "User";
   id: number;
   email: string;
+  avatarUrl: string | null;
   role: UserRole;
 }
 
