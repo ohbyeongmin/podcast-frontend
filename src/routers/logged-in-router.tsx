@@ -1,10 +1,5 @@
 import React from "react";
-import {
-	BrowserRouter as Router,
-	Route,
-	Switch,
-	Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { NotFound } from "../pages/404";
 import { PodcastList } from "../pages/listener/podcast-list";
 import { Header } from "../components/header";
@@ -14,6 +9,8 @@ import { PodcastDetail } from "../pages/listener/podcast-detail";
 import { CategoryNav } from "../components/category-nav";
 import { Category } from "../__generated__/globalTypes";
 import { UserProfile } from "../pages/me-profile";
+import { HostHome } from "../pages/host/host-home";
+import { CreatePodcast } from "../pages/host/create-podcast";
 
 const listenerCategories = ["All", ...Object.values(Category)];
 
@@ -31,10 +28,10 @@ const ListenerRoutes = [
 
 const HostRoutes = [
 	<Route key="1" path="/" exact>
-		<Redirect to="/dashboard" />
+		<HostHome />
 	</Route>,
-	<Route path="/dashboard">
-		<div>dashboard</div>
+	<Route key="2" path="/create-podcast">
+		<CreatePodcast />
 	</Route>,
 ];
 

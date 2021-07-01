@@ -32,12 +32,16 @@ export const Header: React.FC = () => {
 	}, []);
 
 	return (
-		<div className="w-full bg-black bg-opacity-90  px-2">
+		<div className="w-full bg-backgroungColor px-2 pt-2">
 			<div className=" max-w-screen-xl mx-auto flex justify-between items-center">
 				<Link to="/">
 					<div className="flex items-center w-68 py-1 z-10">
-						<img className="w-16 mr-2" src={podcastLogo} alt="podcast" />
-						<h2 className="text-6xl font-semibold text-coolGray-100">
+						<img
+							className="w-12 sm:w-16 mr-2"
+							src={podcastLogo}
+							alt="podcast"
+						/>
+						<h2 className="text-4xl sm:text-6xl font-semibold text-coolGray-100">
 							Podcast
 						</h2>
 					</div>
@@ -51,14 +55,14 @@ export const Header: React.FC = () => {
 						<div className="flex flex-col">
 							<Link
 								to="/edit-profile"
-								className="p-2 transition-colors duration-300 ease-in-out text-warmGray-700  hover:bg-coolGray-900 hover:text-warmGray-100"
+								className="p-2 transition-colors duration-300 ease-in-out text-warmGray-700  hover:bg-black hover:bg-opacity-30 hover:text-warmGray-100"
 							>
 								Edit Profile
 							</Link>
 							<Link
 								to="/"
 								onClick={logoutHandler}
-								className="p-2 transition-colors duration-300 ease-in-out  text-warmGray-700 hover:bg-coolGray-900 hover:text-warmGray-100"
+								className="p-2 transition-colors duration-300 ease-in-out  text-warmGray-700 hover:bg-black hover:bg-opacity-30 hover:text-warmGray-100"
 							>
 								logout
 							</Link>

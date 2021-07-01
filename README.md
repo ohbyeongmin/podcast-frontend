@@ -4,8 +4,8 @@
 
 - [x] Create Account
 - [x] Log in
-- [ ] Log out
-- [ ] Edit Profile
+- [x] Log out
+- [x] Edit Profile
 
 ### Host:
 

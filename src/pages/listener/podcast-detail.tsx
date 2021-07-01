@@ -1,10 +1,7 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import {
-	podcastQuery,
-	podcastQueryVariables,
-} from "../../__generated__/podcastQuery";
+import { podcastQuery } from "../../__generated__/podcastQuery";
 import { Helmet } from "react-helmet-async";
 
 const PODCAST_QUERY = gql`
@@ -31,16 +28,13 @@ interface IParams {
 
 export const PodcastDetail = () => {
 	const params = useParams<IParams>();
-	const { data, loading } = useQuery<podcastQuery, podcastQueryVariables>(
-		PODCAST_QUERY,
-		{
-			variables: {
-				input: {
-					id: +params.id,
-				},
+	const { data, loading } = useQuery<podcastQuery>(PODCAST_QUERY, {
+		variables: {
+			input: {
+				id: +params.id,
 			},
-		}
-	);
+		},
+	});
 
 	return (
 		<div className="w-full h-screen flex justify-center bg-red-400 bg-opacity-10">

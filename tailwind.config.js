@@ -11,6 +11,7 @@ module.exports = {
 				trueGray: colors.trueGray,
 				warmGray: colors.warmGray,
 				indigo: colors.indigo,
+				backgroungColor: "#1A1A1A",
 			},
 		},
 	},
