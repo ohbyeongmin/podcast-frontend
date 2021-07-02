@@ -25,6 +25,13 @@ export interface CreateAccountInput {
   role?: UserRole | null;
 }
 
+export interface CreatePodcastInput {
+  title: string;
+  category: Category;
+  description: string;
+  coverImg?: string | null;
+}
+
 export interface EditProfileInput {
   email?: string | null;
   password?: string | null;

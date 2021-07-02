@@ -9,7 +9,7 @@
 
 ### Host:
 
-- [ ] Create a Podcast
+- [x] Create a Podcast
 - [ ] Edit a Podcast
 - [ ] Delete a Podcast
 - [ ] See Podcast Dashboard (See Listeners and Reviews)

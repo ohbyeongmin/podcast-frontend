@@ -79,7 +79,7 @@ export const CreateAccount = () => {
 					<img src={podcastLogo} alt="podcast" className="w-16 " />
 					<span className=" font-semibold text-6xl">Podcast</span>
 				</div>
-				<div className=" bg-white  w-full  max-w-lg text-center  rounded-xl py-7 px-10 shadow-md">
+				<div className=" bg-white  w-full  max-w-lg text-center rounded-xl py-7 px-10 shadow-md">
 					<h1 className="font-bold text-red-400 text-3xl mb-8">
 						Join with Me!
 					</h1>

@@ -5,7 +5,7 @@ import { PageBackground } from "../../components/page-background";
 import { getHostpodcastsQuery } from "../../__generated__/getHostpodcastsQuery";
 import { Button } from "../../components/button";
 
-const HOST_PODCASTS_QUERY = gql`
+export const HOST_PODCASTS_QUERY = gql`
 	query getHostpodcastsQuery {
 		getHostPodcasts {
 			ok
@@ -22,8 +22,6 @@ const HOST_PODCASTS_QUERY = gql`
 
 export const HostHome = () => {
 	const { data, loading } = useQuery<getHostpodcastsQuery>(HOST_PODCASTS_QUERY);
-	const arr = ["1", "2", "3", "4", "5", "6"];
-	console.log(data?.getHostPodcasts.ok, loading);
 	return (
 		<PageBackground>
 			<div className="px-5 py-5 bg-backgroungColor  sm:py-20">
@@ -41,7 +39,7 @@ export const HostHome = () => {
 								return (
 									<Link
 										key={i}
-										to={`podcast/${podcast.id}`}
+										to={`dashboard/${podcast.id}`}
 										className="col-span-12 sm:col-span-6 2xl:col-span-4 rounded-xl border-b-8 border-black bg-trueGray-800 hover:bg-white hover:bg-opacity-30 transition-colors duration-300 ease-in-out cursor-pointer"
 									>
 										<div className="p-5 sm:p-8">
@@ -74,6 +72,9 @@ export const HostHome = () => {
 								);
 							})}
 					</div>
+					{data?.getHostPodcasts.podcasts?.length === 0 && (
+						<div>Podcast is not exist. Create your own podcast.</div>
+					)}
 				</div>
 			</div>
 		</PageBackground>

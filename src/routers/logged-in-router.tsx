@@ -11,6 +11,7 @@ import { Category } from "../__generated__/globalTypes";
 import { UserProfile } from "../pages/me-profile";
 import { HostHome } from "../pages/host/host-home";
 import { CreatePodcast } from "../pages/host/create-podcast";
+import { Dashboard } from "../pages/host/dashboard";
 
 const listenerCategories = ["All", ...Object.values(Category)];
 
@@ -32,6 +33,9 @@ const HostRoutes = [
 	</Route>,
 	<Route key="2" path="/create-podcast">
 		<CreatePodcast />
+	</Route>,
+	<Route key="3" path="/dashboard/:id">
+		<Dashboard />
 	</Route>,
 ];
 
@@ -59,6 +63,9 @@ export const LoggedInRouter = () => {
 				</Route>
 				<Route path="/profile/:id">
 					<UserProfile />
+				</Route>
+				<Route path="/404">
+					<NotFound />
 				</Route>
 				<Route>
 					<NotFound />
