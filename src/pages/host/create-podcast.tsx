@@ -1,11 +1,12 @@
 import { gql, useApolloClient, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../components/button";
 import { FormError } from "../../components/form-error";
 import { PageBackground } from "../../components/page-background";
+import { uploadAwsS3 } from "../../utils/utils";
 import {
 	createPodcastMutation,
 	createPodcastMutationVariables,
@@ -86,15 +87,7 @@ export const CreatePodcast = () => {
 		try {
 			setUploading(true);
 			const { title, category, description, coverImg } = getValues();
-			const actualFile = coverImg[0];
-			const formBody = new FormData();
-			formBody.append("file", actualFile);
-			const { url } = await (
-				await fetch("http://localhost:4000/uploads", {
-					method: "POST",
-					body: formBody,
-				})
-			).json();
+			const url = await uploadAwsS3(coverImg[0]);
 			setImageUrl(url);
 			createPodcastMutation({
 				variables: {

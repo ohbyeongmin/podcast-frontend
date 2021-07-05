@@ -13,6 +13,7 @@ export interface getHostpodcastsQuery_getHostPodcasts_podcasts {
   title: string;
   coverImg: string | null;
   description: string;
+  updatedAt: any;
 }
 
 export interface getHostpodcastsQuery_getHostPodcasts {

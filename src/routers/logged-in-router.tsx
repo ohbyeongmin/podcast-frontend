@@ -11,7 +11,8 @@ import { Category } from "../__generated__/globalTypes";
 import { UserProfile } from "../pages/me-profile";
 import { HostHome } from "../pages/host/host-home";
 import { CreatePodcast } from "../pages/host/create-podcast";
-import { Dashboard } from "../pages/host/dashboard";
+import { Dashboard } from "../pages/host/dashboard/dashboard";
+import { UploadEpisode } from "../pages/host/upload-episode";
 
 const listenerCategories = ["All", ...Object.values(Category)];
 
@@ -36,6 +37,9 @@ const HostRoutes = [
 	</Route>,
 	<Route key="3" path="/dashboard/:id">
 		<Dashboard />
+	</Route>,
+	<Route key="4" path="/upload-episode/:id">
+		<UploadEpisode />
 	</Route>,
 ];
 

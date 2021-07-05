@@ -13,7 +13,7 @@
 - [ ] Edit a Podcast
 - [ ] Delete a Podcast
 - [ ] See Podcast Dashboard (See Listeners and Reviews)
-- [ ] Upload an Episode
+- [x] Upload an Episode
 - [ ] Edit an Episode
 - [ ] Delete an Episode
 

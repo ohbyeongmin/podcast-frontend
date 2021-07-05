@@ -25,6 +25,12 @@ export interface CreateAccountInput {
   role?: UserRole | null;
 }
 
+export interface CreateEpisodeInput {
+  title: string;
+  audioUrl: string;
+  podcastId: number;
+}
+
 export interface CreatePodcastInput {
   title: string;
   category: Category;
