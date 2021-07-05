@@ -11,6 +11,7 @@ import { PodcastSearchInput } from "./globalTypes";
 
 export interface getEpisodesQuery_getEpisodes_episodes {
   __typename: "Episode";
+  id: number;
   title: string;
   audioUrl: string;
 }

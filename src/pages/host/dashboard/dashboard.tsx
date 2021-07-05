@@ -63,7 +63,7 @@ export const Dashboard = () => {
 				history.push("/404");
 			}
 		}
-	}, [meLoading, podcastLoading]);
+	}); //, [meLoading, podcastLoading]);
 
 	return (
 		<>
