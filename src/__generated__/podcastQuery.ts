@@ -12,7 +12,6 @@ import { PodcastSearchInput, Category } from "./globalTypes";
 export interface podcastQuery_getPodcast_podcast_episodes {
   __typename: "Episode";
   title: string;
-  category: string;
 }
 
 export interface podcastQuery_getPodcast_podcast {

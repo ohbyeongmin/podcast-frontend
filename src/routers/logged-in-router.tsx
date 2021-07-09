@@ -13,6 +13,7 @@ import { HostHome } from "../pages/host/host-home";
 import { CreatePodcast } from "../pages/host/create-podcast";
 import { Dashboard } from "../pages/host/dashboard/dashboard";
 import { UploadEpisode } from "../pages/host/upload-episode";
+import { EditEpisode } from "../pages/host/edit-episode";
 
 const listenerCategories = ["All", ...Object.values(Category)];
 
@@ -40,6 +41,9 @@ const HostRoutes = [
 	</Route>,
 	<Route key="4" path="/upload-episode/:id">
 		<UploadEpisode />
+	</Route>,
+	<Route key="5" path="/edit-episode/:podcastId/:episodeId">
+		<EditEpisode />
 	</Route>,
 ];
 

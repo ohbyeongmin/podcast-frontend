@@ -15,7 +15,6 @@ const PODCAST_QUERY = gql`
 				rating
 				episodes {
 					title
-					category
 				}
 			}
 		}
@@ -57,7 +56,6 @@ export const PodcastDetail = () => {
 								className="flex py-2 px-4 justify-between bg-red-200"
 							>
 								<h2>{episode.title}</h2>
-								<span>{episode.category}</span>
 							</div>
 						))}
 					</div>

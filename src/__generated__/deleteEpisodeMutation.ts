@@ -10,15 +10,15 @@ import { EpisodesSearchInput } from "./globalTypes";
 // ====================================================
 
 export interface deleteEpisodeMutation_deleteEpisode {
-	__typename: "CoreOutput";
-	error: string | null;
-	ok: boolean;
+  __typename: "CoreOutput";
+  error: string | null;
+  ok: boolean;
 }
 
 export interface deleteEpisodeMutation {
-	deleteEpisode: deleteEpisodeMutation_deleteEpisode;
+  deleteEpisode: deleteEpisodeMutation_deleteEpisode;
 }
 
 export interface deleteEpisodeMutationVariables {
-	input: EpisodesSearchInput;
+  input: EpisodesSearchInput;
 }

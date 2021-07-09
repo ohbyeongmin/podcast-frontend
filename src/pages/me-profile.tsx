@@ -1,13 +1,14 @@
 import React from "react";
 import { PageBackground } from "../components/page-background";
 import { Button } from "../components/button";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useApolloClient } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import { useMe } from "../hooks/useMe";
 import {
 	editProfileMutation,
 	editProfileMutationVariables,
 } from "../__generated__/editProfileMutation";
+import { useHistory } from "react-router-dom";
 
 type TypeEditProfileForm = {
 	email: string;
@@ -25,47 +26,65 @@ const EDIT_PROFILE_MUTATION = gql`
 `;
 
 export const UserProfile = () => {
-	const { data } = useMe();
+	const { data: userData } = useMe();
+	const client = useApolloClient();
+	const history = useHistory();
 	const {
 		register,
 		handleSubmit,
 		getValues,
-		setValue,
-		formState: { errors },
+		formState: { errors, isValid },
 	} = useForm<TypeEditProfileForm>({
 		mode: "onChange",
+		defaultValues: {
+			email: userData?.me.email,
+		},
 	});
 
-	const [editProfileMutation, { data: editProfileMutationResult, loading }] =
-		useMutation<editProfileMutation, editProfileMutationVariables>(
-			EDIT_PROFILE_MUTATION
-		);
-
-	const emailOnSubmit = () => {
-		if (!loading) {
-			const { email } = getValues();
-			editProfileMutation({
-				variables: {
-					editProfileInput: {
-						email,
+	const onCompleted = (data: editProfileMutation) => {
+		const {
+			editProfile: { ok },
+		} = data;
+		if (ok && userData) {
+			const {
+				me: { email: prevEmail, id },
+			} = userData;
+			const { email: newEmail } = getValues();
+			if (prevEmail !== newEmail) {
+				client.writeFragment({
+					id: `User:${id}`,
+					fragment: gql`
+						fragment EditedUser on User {
+							email
+						}
+					`,
+					data: {
+						email: newEmail,
 					},
-				},
-			});
+				});
+			}
+			history.push("/");
 		}
 	};
 
-	const passwordOnSubmit = () => {
-		if (!loading) {
-			const { password } = getValues();
-			editProfileMutation({
-				variables: {
-					editProfileInput: {
-						password,
-					},
+	const [editProfileMutation, { data: editProfileMutationResult }] =
+		useMutation<editProfileMutation, editProfileMutationVariables>(
+			EDIT_PROFILE_MUTATION,
+			{
+				onCompleted,
+			}
+		);
+
+	const onSubmit = () => {
+		const { email, password } = getValues();
+		editProfileMutation({
+			variables: {
+				editProfileInput: {
+					email,
+					...(password !== "" && { password }),
 				},
-			});
-			setValue("password", "");
-		}
+			},
+		});
 	};
 
 	return (
@@ -73,42 +92,20 @@ export const UserProfile = () => {
 			<div className="max-w-xl mx-auto flex flex-col pt-16 px-5 text-red-500">
 				<div className=" rounded-2xl bg-trueGray-900 border-black border-solid border-b-4 mb-10">
 					<div className="p-5">
-						<form
-							className="flex flex-col"
-							onSubmit={handleSubmit(emailOnSubmit)}
-						>
-							<div className="grid grid-rows-2 grid-cols-6 gap-y-3">
+						<form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+							<div className="grid grid-cols-6 gap-y-3">
 								<div className="col-span-6">
 									<label className="font-bold text-lg">Email</label>
 								</div>
 								<input
-									className="col-span-6 sm:row-span-1 sm:col-span-3 bg-trueGray-900 focus:outline-none text-white"
+									className="col-span-6 sm:row-span-1 sm:col-span-3 bg-trueGray-900 focus:outline-none text-white mb-5"
 									{...register("email", {
 										pattern:
 											/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 									})}
 									type="email"
-									placeholder={data?.me.email! as string}
 								></input>
-							</div>
-							<div className="self-end mt-5 text-xs">
-								<Button
-									canClick={true}
-									loading={false}
-									actionText={"Change email"}
-								/>
-							</div>
-						</form>
-					</div>
-				</div>
-				{errors.email?.message && alert(`${errors.email?.message}`)}
-				<div className=" rounded-2xl bg-trueGray-900 border-black border-solid border-b-4">
-					<div className="p-5">
-						<form
-							className="flex flex-col"
-							onSubmit={handleSubmit(passwordOnSubmit)}
-						>
-							<div className="grid grid-rows-2 grid-cols-6 gap-y-3">
+								{errors.email?.message && alert(`${errors.email?.message}`)}
 								<div className="col-span-6">
 									<label className="font-bold text-lg">Password</label>
 								</div>
@@ -116,23 +113,22 @@ export const UserProfile = () => {
 									{...register("password")}
 									className="col-span-6 sm:row-span-1 sm:col-span-3 bg-trueGray-900 focus:outline-none text-white"
 									type="password"
-									placeholder={"Password"}
+									placeholder="Password"
 								></input>
 							</div>
 							<div className="self-end mt-5 text-xs">
 								<Button
-									canClick={true}
-									loading={loading}
-									actionText={"Change email"}
+									canClick={isValid}
+									loading={false}
+									actionText={"Change Profile"}
 								/>
 							</div>
 						</form>
 					</div>
 				</div>
-				{editProfileMutationResult?.editProfile.error &&
-					alert(editProfileMutationResult.editProfile.error)}
-				{editProfileMutationResult?.editProfile.ok && alert("Success!")}
 			</div>
+			{editProfileMutationResult?.editProfile.error &&
+				alert(editProfileMutationResult.editProfile.error)}
 		</PageBackground>
 	);
 };

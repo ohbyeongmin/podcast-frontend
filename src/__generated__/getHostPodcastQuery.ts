@@ -14,12 +14,31 @@ export interface getHostPodcastQuery_getPodcast_podcast_creator {
   id: number;
 }
 
+export interface getHostPodcastQuery_getPodcast_podcast_reviews_creator {
+  __typename: "User";
+  email: string;
+}
+
+export interface getHostPodcastQuery_getPodcast_podcast_reviews {
+  __typename: "Review";
+  title: string;
+  text: string;
+  creator: getHostPodcastQuery_getPodcast_podcast_reviews_creator;
+}
+
+export interface getHostPodcastQuery_getPodcast_podcast_listeners {
+  __typename: "User";
+  email: string;
+}
+
 export interface getHostPodcastQuery_getPodcast_podcast {
   __typename: "Podcast";
   title: string;
   description: string;
   coverImg: string | null;
   creator: getHostPodcastQuery_getPodcast_podcast_creator;
+  reviews: getHostPodcastQuery_getPodcast_podcast_reviews[];
+  listeners: getHostPodcastQuery_getPodcast_podcast_listeners[];
 }
 
 export interface getHostPodcastQuery_getPodcast {

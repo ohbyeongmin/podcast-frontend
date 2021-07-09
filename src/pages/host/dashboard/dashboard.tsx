@@ -18,8 +18,6 @@ import { DashboardReviews } from "./dashboard-reviews";
 import { DashboardListeners } from "./dashboard-listeners";
 import { DashboardEdit } from "./dashboard-edit";
 
-//https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_1MG.mp3
-
 type paramsType = {
 	id: string;
 };
@@ -35,6 +33,16 @@ const GET_HOST_PODCAST_QUERY = gql`
 				coverImg
 				creator {
 					id
+				}
+				reviews {
+					title
+					text
+					creator {
+						email
+					}
+				}
+				listeners {
+					email
 				}
 			}
 		}
@@ -63,7 +71,7 @@ export const Dashboard = () => {
 				history.push("/404");
 			}
 		}
-	}); //, [meLoading, podcastLoading]);
+	});
 
 	return (
 		<>
@@ -91,7 +99,9 @@ export const Dashboard = () => {
 								: ""
 						}
 					>
-						<DashboardReviews />
+						<DashboardReviews
+							reviews={podcastData?.getPodcast.podcast?.reviews!}
+						/>
 					</DashboardContainer>
 				</Route>
 				<Route path={`${path}/listeners`}>
@@ -104,7 +114,9 @@ export const Dashboard = () => {
 								: ""
 						}
 					>
-						<DashboardListeners />
+						<DashboardListeners
+							listeners={podcastData?.getPodcast.podcast?.listeners!}
+						/>
 					</DashboardContainer>
 				</Route>
 				<Route path={`${path}/edit`}>

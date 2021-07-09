@@ -58,6 +58,12 @@ export interface PodcastSearchInput {
   id: number;
 }
 
+export interface UpdateEpisodeInput {
+  podcastId: number;
+  episodeId: number;
+  title?: string | null;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

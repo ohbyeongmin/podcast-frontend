@@ -143,7 +143,7 @@ export const DashboardEpisodeCard: React.FC<IDashBoardEpisodeCard> = ({
 						>
 							<div className="flex flex-col">
 								<Link
-									to="#"
+									to={`/edit-episode/${podcastId}/${episodeId}`}
 									className="p-2 transition-colors duration-300 ease-in-out text-warmGray-700  hover:bg-black hover:bg-opacity-30 hover:text-warmGray-100"
 								>
 									Edit Episode
