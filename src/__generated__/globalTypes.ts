@@ -64,6 +64,19 @@ export interface UpdateEpisodeInput {
   title?: string | null;
 }
 
+export interface UpdatePodcastInput {
+  id: number;
+  payload: UpdatePodcastPayload;
+}
+
+export interface UpdatePodcastPayload {
+  title?: string | null;
+  category?: Category | null;
+  rating?: number | null;
+  description?: string | null;
+  coverImg?: string | null;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

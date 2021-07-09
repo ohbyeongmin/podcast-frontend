@@ -14,10 +14,6 @@ import {
 import { Category } from "../../__generated__/globalTypes";
 import { HOST_PODCASTS_QUERY } from "./host-home";
 
-// useform : title, category, description, coverImg
-// upload cover image
-// mutation create podcast
-
 type CreatePodcastType = {
 	title: string;
 	category: Category;

@@ -31,6 +31,7 @@ const GET_HOST_PODCAST_QUERY = gql`
 				title
 				description
 				coverImg
+				category
 				creator {
 					id
 				}
@@ -54,16 +55,20 @@ export const Dashboard = () => {
 	const history = useHistory();
 	const { data: meData, loading: meLoading } = useMe();
 	const { id: podcastId } = useParams<paramsType>();
-	const { data: podcastData, loading: podcastLoading } = useQuery<
-		getHostPodcastQuery,
-		getHostPodcastQueryVariables
-	>(GET_HOST_PODCAST_QUERY, {
-		variables: {
-			input: {
-				id: +podcastId,
+	const {
+		data: podcastData,
+		loading: podcastLoading,
+		refetch,
+	} = useQuery<getHostPodcastQuery, getHostPodcastQueryVariables>(
+		GET_HOST_PODCAST_QUERY,
+		{
+			variables: {
+				input: {
+					id: +podcastId,
+				},
 			},
-		},
-	});
+		}
+	);
 
 	useEffect(() => {
 		if (!meLoading && !podcastLoading) {
@@ -129,7 +134,15 @@ export const Dashboard = () => {
 								: ""
 						}
 					>
-						<DashboardEdit />
+						<DashboardEdit
+							title={podcastData?.getPodcast.podcast?.title! as string}
+							description={
+								podcastData?.getPodcast.podcast?.description! as string
+							}
+							coverImg={podcastData?.getPodcast.podcast?.coverImg!}
+							category={podcastData?.getPodcast.podcast?.category!}
+							refetch={refetch}
+						/>
 					</DashboardContainer>
 				</Route>
 			</Switch>
