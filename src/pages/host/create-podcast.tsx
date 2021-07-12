@@ -95,7 +95,7 @@ export const CreatePodcast = () => {
 					},
 				},
 			});
-		} catch (e) {}
+		} catch (e) { }
 	};
 
 	return (

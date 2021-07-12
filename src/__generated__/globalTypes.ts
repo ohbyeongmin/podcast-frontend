@@ -49,6 +49,15 @@ export interface EpisodesSearchInput {
   episodeId: number;
 }
 
+export interface GetPodcastsCategoryPagenationInput {
+  page: number;
+  selectCategory: Category;
+}
+
+export interface GetPodcastsPagenationInput {
+  page: number;
+}
+
 export interface LoginInput {
   email: string;
   password: string;
@@ -56,6 +65,15 @@ export interface LoginInput {
 
 export interface PodcastSearchInput {
   id: number;
+}
+
+export interface SearchPodcastsInput {
+  page?: number | null;
+  titleQuery: string;
+}
+
+export interface ToggleSubscribeInput {
+  podcastId: number;
 }
 
 export interface UpdateEpisodeInput {

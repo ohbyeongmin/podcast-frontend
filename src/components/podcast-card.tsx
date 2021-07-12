@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -28,6 +27,7 @@ export const PodcastCard: React.FC<IPodcastCard> = ({
 				<img
 					className="w-20 h-20 object-cover rounded-full border-2 border-green-400"
 					src={img}
+					alt="img"
 				/>
 			</div>
 			<div>

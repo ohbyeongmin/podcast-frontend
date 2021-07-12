@@ -10,6 +10,7 @@ type TypeAvatar = {
 export const Avatar: React.FC<TypeAvatar> = ({ size = "10" }) => {
 	// const { data } = useMe();
 
+
 	return (
 		// <Link to={data?.me.id === userId ? "/profile" : `/profile/${userId}`}>
 		<div

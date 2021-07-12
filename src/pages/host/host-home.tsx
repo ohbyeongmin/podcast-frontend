@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -7,6 +6,8 @@ import { getHostpodcastsQuery } from "../../__generated__/getHostpodcastsQuery";
 import { Button } from "../../components/button";
 import { PodcastCard } from "../../components/podcast-card";
 import { v4 as uuidv4 } from "uuid";
+
+
 
 export const HOST_PODCASTS_QUERY = gql`
 	query getHostpodcastsQuery {
@@ -44,7 +45,7 @@ export const HostHome = () => {
 									<PodcastCard
 										key={uuidv4()}
 										routeUrl={`dashboard/${podcast.id}`}
-										img={podcast.coverImg ? podcast.coverImg : ""}
+										img={podcast.coverImg!}
 										title={podcast.title}
 										description={podcast.description}
 										updatedAt={podcast.updatedAt}

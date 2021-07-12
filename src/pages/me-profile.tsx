@@ -29,6 +29,7 @@ export const UserProfile = () => {
 	const { data: userData } = useMe();
 	const client = useApolloClient();
 	const history = useHistory();
+
 	const {
 		register,
 		handleSubmit,

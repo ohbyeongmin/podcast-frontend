@@ -68,7 +68,7 @@ export const DashboardEpisodeCard: React.FC<IDashBoardEpisodeCard> = ({
 					},
 				});
 			}
-		} catch (e) {}
+		} catch (e) { }
 	};
 
 	const [deleteEpisodeMutation] = useMutation<
@@ -86,7 +86,7 @@ export const DashboardEpisodeCard: React.FC<IDashBoardEpisodeCard> = ({
 					},
 				},
 			});
-		} catch (e) {}
+		} catch (e) { }
 	};
 
 	const episodeOptionHandler = (e: MouseEvent) => {
@@ -96,7 +96,7 @@ export const DashboardEpisodeCard: React.FC<IDashBoardEpisodeCard> = ({
 				`pop-episode-option${episodeId}`
 			);
 
-			for (; target.parentNode !== document; ) {
+			for (; target.parentNode !== document;) {
 				if (target.parentNode === null) {
 					break;
 				}
@@ -111,7 +111,7 @@ export const DashboardEpisodeCard: React.FC<IDashBoardEpisodeCard> = ({
 			} else {
 				userBoard?.classList.add("hidden");
 			}
-		} catch (e) {}
+		} catch (e) { }
 	};
 
 	useEffect(() => {

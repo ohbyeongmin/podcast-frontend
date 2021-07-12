@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { PageBackground } from "../../components/page-background";
-import { PodcastCardListener } from "../../components/listener/podcast-card-listener";
-import { v4 as uuidv4 } from "uuid";
 import { SearchBar } from "../../components/search-bar";
-import { useLocation } from "react-router-dom";
-import { podcastsPagenationQuery } from "../../__generated__/podcastsPagenationQuery";
+import { v4 as uuidv4 } from "uuid";
+import { PodcastCardListener } from "../../components/listener/podcast-card-listener";
+import { useLocation, useParams } from "react-router-dom";
+import { searchPodcastsQuery } from "../../__generated__/searchPodcastsQuery";
 import { Pagenation } from "../../components/pagenation";
 
-const PODCASTS_PAGENATION_QUERY = gql`
-    query podcastsPagenationQuery($input: GetPodcastsPagenationInput!) {
-        getPodcastsPagenation(input: $input) {
+interface ISearch {
+    search: string;
+}
+
+const SEARCH_PODCASTS_QUERY = gql`
+    query searchPodcastsQuery($input: SearchPodcastsInput!) {
+        searchPodcasts(input: $input) {
             ok
             error
             totalPages
@@ -34,15 +38,17 @@ const PODCASTS_PAGENATION_QUERY = gql`
     }
 `;
 
-export const PodcastList = () => {
-    const { search, pathname } = useLocation();
+export const Search = () => {
+    const { search: searchItem } = useParams<ISearch>();
     const [page, setPage] = useState(0);
-    const { data, loading } = useQuery<podcastsPagenationQuery>(
-        PODCASTS_PAGENATION_QUERY,
+    const { search, pathname } = useLocation();
+    const { data, loading } = useQuery<searchPodcastsQuery>(
+        SEARCH_PODCASTS_QUERY,
         {
             variables: {
                 input: {
                     page: page,
+                    titleQuery: searchItem,
                 },
             },
         }
@@ -55,24 +61,22 @@ export const PodcastList = () => {
     return (
         <PageBackground>
             <Helmet>
-                <title>Podcast | All</title>
+                <title>{`Podcast | ${searchItem}`}</title>
             </Helmet>
             <div className="max-w-3xl w-full mx-auto z-10">
-                <div className="flex flex-col ">
+                <div className="flex flex-col">
                     <SearchBar />
                     {!loading &&
-                        data?.getPodcastsPagenation.podcasts?.map((podcast) => {
-                            return (
-                                <PodcastCardListener
-                                    key={uuidv4()}
-                                    podcast={podcast}
-                                />
-                            );
-                        })}
+                        data?.searchPodcasts.podcasts?.map((podcast) => (
+                            <PodcastCardListener
+                                key={uuidv4()}
+                                podcast={podcast}
+                            />
+                        ))}
                     <Pagenation
                         pathname={pathname}
                         page={page}
-                        totalPages={data?.getPodcastsPagenation.totalPages!}
+                        totalPages={data?.searchPodcasts.totalPages!}
                     />
                 </div>
             </div>

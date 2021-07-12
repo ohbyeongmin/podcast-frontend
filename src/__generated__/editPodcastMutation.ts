@@ -10,15 +10,15 @@ import { UpdatePodcastInput } from "./globalTypes";
 // ====================================================
 
 export interface editPodcastMutation_updatePodcast {
-	__typename: "CoreOutput";
-	ok: boolean;
-	error: string | null;
+  __typename: "CoreOutput";
+  ok: boolean;
+  error: string | null;
 }
 
 export interface editPodcastMutation {
-	updatePodcast: editPodcastMutation_updatePodcast;
+  updatePodcast: editPodcastMutation_updatePodcast;
 }
 
 export interface editPodcastMutationVariables {
-	input: UpdatePodcastInput;
+  input: UpdatePodcastInput;
 }

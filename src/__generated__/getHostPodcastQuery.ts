@@ -38,8 +38,8 @@ export interface getHostPodcastQuery_getPodcast_podcast {
   coverImg: string | null;
   category: Category;
   creator: getHostPodcastQuery_getPodcast_podcast_creator;
-  reviews: getHostPodcastQuery_getPodcast_podcast_reviews[];
-  listeners: getHostPodcastQuery_getPodcast_podcast_listeners[];
+  reviews: getHostPodcastQuery_getPodcast_podcast_reviews[] | null;
+  listeners: getHostPodcastQuery_getPodcast_podcast_listeners[] | null;
 }
 
 export interface getHostPodcastQuery_getPodcast {

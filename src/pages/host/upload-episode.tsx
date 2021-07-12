@@ -108,7 +108,7 @@ export const UploadEpisode = () => {
 					},
 				},
 			});
-		} catch (e) {}
+		} catch (e) { }
 	};
 
 	return (
