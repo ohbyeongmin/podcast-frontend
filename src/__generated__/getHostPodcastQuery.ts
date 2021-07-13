@@ -21,7 +21,6 @@ export interface getHostPodcastQuery_getPodcast_podcast_reviews_creator {
 
 export interface getHostPodcastQuery_getPodcast_podcast_reviews {
   __typename: "Review";
-  title: string;
   text: string;
   creator: getHostPodcastQuery_getPodcast_podcast_reviews_creator;
 }

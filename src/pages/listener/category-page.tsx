@@ -46,17 +46,18 @@ export const CategoryPage = () => {
     const params = useParams<ICategoryParams>();
     const { search, pathname } = useLocation();
     const [page, setPage] = useState(0);
-    const { data, loading } = useQuery<podcastsCateogryPagenationQuery>(
-        PODCASTS_CATEGORY_PAGENATION_QUERY,
-        {
-            variables: {
-                input: {
-                    page: page,
-                    selectCategory: params.category,
+    const { data, loading, refetch } =
+        useQuery<podcastsCateogryPagenationQuery>(
+            PODCASTS_CATEGORY_PAGENATION_QUERY,
+            {
+                variables: {
+                    input: {
+                        page: page,
+                        selectCategory: params.category,
+                    },
                 },
-            },
-        }
-    );
+            }
+        );
 
     useEffect(() => {
         search ? setPage(+search.split("=")[1]) : setPage(1);
@@ -80,6 +81,7 @@ export const CategoryPage = () => {
                                 <PodcastCardListener
                                     key={uuidv4()}
                                     podcast={podcast}
+                                    refetch={refetch}
                                 />
                             )
                         )}

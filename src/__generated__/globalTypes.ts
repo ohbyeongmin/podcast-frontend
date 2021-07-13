@@ -38,6 +38,11 @@ export interface CreatePodcastInput {
   coverImg?: string | null;
 }
 
+export interface CreateReviewInput {
+  text: string;
+  podcastId: number;
+}
+
 export interface EditProfileInput {
   email?: string | null;
   password?: string | null;

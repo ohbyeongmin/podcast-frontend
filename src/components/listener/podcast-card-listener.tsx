@@ -29,9 +29,10 @@ type TypePodcast = {
 
 interface IPodcastCard {
     podcast: TypePodcast;
+    refetch: () => {};
 }
 
-const SUBSCRIBE_MUTATION = gql`
+export const SUBSCRIBE_MUTATION = gql`
     mutation subscribeMutation($input: ToggleSubscribeInput!) {
         toggleSubscribe(input: $input) {
             ok
@@ -40,29 +41,21 @@ const SUBSCRIBE_MUTATION = gql`
     }
 `;
 
-export const PodcastCardListener: React.FC<IPodcastCard> = ({ podcast }) => {
+export const PodcastCardListener: React.FC<IPodcastCard> = ({
+    podcast,
+    refetch,
+}) => {
     const { data } = useMe();
     const [cardWidth, setCardWidth] = useState<number>(0);
     const [cardHeight, setCardHeight] = useState<number>(0);
     const [windowSize, setWindowSize] = useState<number>();
-    const [countFollows, setCountFollows] = useState<number>(
-        podcast.listeners?.length!
-    );
-    const [follow, setfollow] = useState<boolean>(
-        podcast.listeners?.find((listener) => listener.id === data?.me.id)
-            ? true
-            : false
-    );
 
     const onCompleted = (data: subscribeMutation) => {
         const {
             toggleSubscribe: { ok },
         } = data;
         if (ok) {
-            setfollow(!follow);
-            follow
-                ? setCountFollows(countFollows - 1)
-                : setCountFollows(countFollows + 1);
+            refetch();
         }
     };
 
@@ -106,14 +99,14 @@ export const PodcastCardListener: React.FC<IPodcastCard> = ({ podcast }) => {
             ></div>
             <div
                 id="front"
-                className="bg-trueGray-800 shadow-lg rounded-3xl p-4 m-4 transform   sm:hover:-translate-x-3 sm:hover:-translate-y-3 duration-500 ease-in-out"
+                className="bg-trueGray-800 shadow-lg rounded-2xl p-4 m-4 transform  sm:hover:-translate-x-3 sm:hover:-translate-y-3 duration-500 ease-in-out"
             >
                 <div className="flex-none sm:flex">
-                    <div className="h-32 w-32   sm:mb-0 mb-3">
+                    <div className="h-32 w-32  sm:mb-0 mb-3">
                         <img
                             src={podcast.coverImg! as string}
-                            alt="asji"
-                            className=" w-32 h-32 object-cover rounded-2xl"
+                            alt="coverImg"
+                            className=" w-32 h-32 object-cover rounded-full"
                         />
                     </div>
                     <div className="flex-auto sm:ml-5 justify-evenly">
@@ -131,8 +124,10 @@ export const PodcastCardListener: React.FC<IPodcastCard> = ({ podcast }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex flex-row items-center">
-                            <div>{podcast.description}</div>
+                        <div>
+                            {podcast.description.length > 42
+                                ? `${podcast.description.slice(0, 42)}...`
+                                : podcast.description}
                         </div>
                         <div className="flex pt-2  text-sm text-gray-400">
                             <div className="flex-1 inline-flex items-center">
@@ -144,7 +139,9 @@ export const PodcastCardListener: React.FC<IPodcastCard> = ({ podcast }) => {
                                 >
                                     <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"></path>
                                 </svg>
-                                <p className="">{countFollows} Followers</p>
+                                <p className="">
+                                    {podcast.listeners?.length} Followers
+                                </p>
                             </div>
                             <div className="flex-1 inline-flex items-center">
                                 <svg
@@ -160,14 +157,18 @@ export const PodcastCardListener: React.FC<IPodcastCard> = ({ podcast }) => {
                                     ></path>
                                 </svg>
                                 <p className="">
-                                    {podcast.reviews?.length} Coments
+                                    {podcast.reviews?.length} Comments
                                 </p>
                             </div>
                             <button
                                 onClick={onClick}
                                 className=" flex-no-shrink bg-green-400 hover:bg-green-600 px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-300 hover:border-green-500 text-white rounded-full transition ease-in duration-300 focus:outline-none"
                             >
-                                {follow ? "UNFOLLOW" : "FOLLOW"}
+                                {podcast.listeners?.find(
+                                    (listener) => listener.id === data?.me.id
+                                )
+                                    ? "UNFOLLOW"
+                                    : "FOLLOW"}
                             </button>
                         </div>
                     </div>

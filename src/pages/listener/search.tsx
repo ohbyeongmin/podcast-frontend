@@ -8,6 +8,7 @@ import { PodcastCardListener } from "../../components/listener/podcast-card-list
 import { useLocation, useParams } from "react-router-dom";
 import { searchPodcastsQuery } from "../../__generated__/searchPodcastsQuery";
 import { Pagenation } from "../../components/pagenation";
+import { FormError } from "../../components/form-error";
 
 interface ISearch {
     search: string;
@@ -42,7 +43,7 @@ export const Search = () => {
     const { search: searchItem } = useParams<ISearch>();
     const [page, setPage] = useState(0);
     const { search, pathname } = useLocation();
-    const { data, loading } = useQuery<searchPodcastsQuery>(
+    const { data, loading, refetch } = useQuery<searchPodcastsQuery>(
         SEARCH_PODCASTS_QUERY,
         {
             variables: {
@@ -71,12 +72,20 @@ export const Search = () => {
                             <PodcastCardListener
                                 key={uuidv4()}
                                 podcast={podcast}
+                                refetch={refetch}
                             />
                         ))}
+                    {data?.searchPodcasts.error && (
+                        <div className="self-center my-10">
+                            <FormError
+                                errorMessage={data.searchPodcasts.error}
+                            />
+                        </div>
+                    )}
                     <Pagenation
                         pathname={pathname}
                         page={page}
-                        totalPages={data?.searchPodcasts.totalPages!}
+                        totalPages={data?.searchPodcasts.totalPages}
                     />
                 </div>
             </div>

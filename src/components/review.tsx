@@ -1,19 +1,22 @@
 import React from "react";
 
 interface IReview {
-	email: string;
-	title: string;
-	text: string;
+    email: string;
+    text: string;
 }
 
-export const Review: React.FC<IReview> = ({ email, title, text }) => {
-	return (
-		<div className="flex flex-col ">
-			<div className="w-min flex items-center bg-trueGray-700 px-3 py-1 text-xs rounded-full">
-				{email}
-			</div>
-			<h2 className="text-trueGray-500">{title}</h2>
-			<p className="text-sm">{text}</p>
-		</div>
-	);
+export const Review: React.FC<IReview> = ({ email, text }) => {
+    return (
+        <div className="flex flex-col">
+            <div
+                className="w-min flex items-center px-3 mb-1 py-1 text-xs text-trueGray-900 rounded-full"
+                style={{
+                    background: `hsla(${~~(360 * Math.random())},70%,70%,1)`,
+                }}
+            >
+                {email}
+            </div>
+            <p className="text-sm">{text}</p>
+        </div>
+    );
 };

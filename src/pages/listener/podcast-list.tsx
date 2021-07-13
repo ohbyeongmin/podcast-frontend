@@ -37,7 +37,7 @@ const PODCASTS_PAGENATION_QUERY = gql`
 export const PodcastList = () => {
     const { search, pathname } = useLocation();
     const [page, setPage] = useState(0);
-    const { data, loading } = useQuery<podcastsPagenationQuery>(
+    const { data, loading, refetch } = useQuery<podcastsPagenationQuery>(
         PODCASTS_PAGENATION_QUERY,
         {
             variables: {
@@ -66,6 +66,7 @@ export const PodcastList = () => {
                                 <PodcastCardListener
                                     key={uuidv4()}
                                     podcast={podcast}
+                                    refetch={refetch}
                                 />
                             );
                         })}
