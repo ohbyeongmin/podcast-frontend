@@ -1,23 +1,25 @@
 import React from "react";
-import defaultAvatar from "../images/user.png";
-// import { Link } from "react-router-dom";
-// import { useMe } from "../hooks/useMe";
+import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type TypeAvatar = {
-	size?: string;
+    size?: string;
 };
 
 export const Avatar: React.FC<TypeAvatar> = ({ size = "10" }) => {
-	// const { data } = useMe();
-
-
-	return (
-		// <Link to={data?.me.id === userId ? "/profile" : `/profile/${userId}`}>
-		<div
-			id="avatar"
-			className={`w-${size} h-${size} bg-white bg-opacity-90 bg-cover bg-no-repeat rounded-full border-2 border-black cursor-pointer`}
-			style={{ backgroundImage: `url(${defaultAvatar})` }}
-		></div>
-		// </Link>
-	);
+    return (
+        <div className="w-14 h-14 flex justify-center items-center">
+            <div className="relative">
+                <div
+                    id="avatar"
+                    className="absolute cursor-pointer w-10 h-10 -top-5 -left-1"
+                ></div>
+            </div>
+            <FontAwesomeIcon
+                id="avatar"
+                icon={faUserAlt}
+                className="text-white text-3xl"
+            />
+        </div>
+    );
 };
