@@ -75,13 +75,17 @@ export const CreateAccount = () => {
                 <Helmet>
                     <title>Podcast | Create Account</title>
                 </Helmet>
-                <div className="flex bg-opacity-10  rounded-full bg-white  text-red-400 items-center justify-center max-w-lg w-full py-2 px-28 text-center mb-5">
-                    <img src={podcastLogo} alt="podcast" className="w-16 " />
-                    <span className="text-coolGray-100 font-semibold text-6xl">
+                <div className="flex bg-opacity-10  rounded-full bg-white  text-red-400 items-center justify-center max-w-xs sm:max-w-lg  w-full py-2 px-28 text-center mb-5">
+                    <img
+                        src={podcastLogo}
+                        alt="podcast"
+                        className="w-12 sm:w-16 "
+                    />
+                    <span className="text-coolGray-100 font-semibold text-5xl sm:text-6xl">
                         Podcast
                     </span>
                 </div>
-                <div className="bg-trueGray-800  w-full  max-w-lg text-center rounded-xl py-7 px-10 shadow-md">
+                <div className="bg-trueGray-800  w-full max-w-xs sm:max-w-lg text-center rounded-xl py-7 px-10 shadow-md">
                     <h1 className="font-bold text-red-400 text-3xl mb-8">
                         Join with Me!
                     </h1>
