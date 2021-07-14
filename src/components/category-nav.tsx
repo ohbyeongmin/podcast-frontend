@@ -20,7 +20,7 @@ export const CategoryNav: React.FC<ICategoryNavProps> = ({ categories }) => {
                 />
             )}
             <ul
-                className={`grid grid-cols-${categories.length} items-center max-w-md mx-auto text-sm font-md text-red-500`}
+                className={`grid grid-cols-5 items-center max-w-md mx-auto text-sm font-md text-red-500`}
             >
                 {categories.map((category, index) => (
                     <div key={index} ref={categoryNavRef}>
