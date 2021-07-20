@@ -9,6 +9,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { searchPodcastsQuery } from "../../__generated__/searchPodcastsQuery";
 import { Pagenation } from "../../components/pagenation";
 import { FormError } from "../../components/form-error";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 interface ISearch {
     search: string;
@@ -67,14 +68,26 @@ export const Search = () => {
             <div className="max-w-3xl w-full mx-auto z-10">
                 <div className="flex flex-col">
                     <SearchBar />
-                    {!loading &&
+                    {loading ? (
+                        <SkeletonTheme color="#262626" highlightColor="#333">
+                            <p>
+                                <Skeleton
+                                    className="mt-7 mx-auto"
+                                    count={3}
+                                    duration={1}
+                                    height={150}
+                                />
+                            </p>
+                        </SkeletonTheme>
+                    ) : (
                         data?.searchPodcasts.podcasts?.map((podcast) => (
                             <PodcastCardListener
                                 key={uuidv4()}
                                 podcast={podcast}
                                 refetch={refetch}
                             />
-                        ))}
+                        ))
+                    )}
                     {data?.searchPodcasts.error && (
                         <div className="self-center my-10">
                             <FormError

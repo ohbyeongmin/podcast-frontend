@@ -20,9 +20,9 @@ export enum UserRole {
 }
 
 export interface CreateAccountInput {
-  email?: string | null;
-  password?: string | null;
-  role?: UserRole | null;
+  email: string;
+  password: string;
+  role: UserRole;
 }
 
 export interface CreateEpisodeInput {

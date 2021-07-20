@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import { SearchBar } from "../../components/search-bar";
 import { Pagenation } from "../../components/pagenation";
 import { podcastsCateogryPagenationQuery } from "../../__generated__/podcastsCateogryPagenationQuery";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 interface ICategoryParams {
     category: string;
@@ -75,7 +76,18 @@ export const CategoryPage = () => {
             <div className="max-w-3xl w-full mx-auto z-10">
                 <div className="flex flex-col">
                     <SearchBar />
-                    {!loading &&
+                    {loading ? (
+                        <SkeletonTheme color="#262626" highlightColor="#333">
+                            <p>
+                                <Skeleton
+                                    className="mt-7 mx-auto"
+                                    count={3}
+                                    duration={1}
+                                    height={150}
+                                />
+                            </p>
+                        </SkeletonTheme>
+                    ) : (
                         data?.getPodcastsCategoryPagenation.podcasts?.map(
                             (podcast) => (
                                 <PodcastCardListener
@@ -84,7 +96,8 @@ export const CategoryPage = () => {
                                     refetch={refetch}
                                 />
                             )
-                        )}
+                        )
+                    )}
                     <Pagenation
                         pathname={pathname}
                         page={page}

@@ -26,6 +26,7 @@
         "react-helmet": "^6.1.0",
         "react-helmet-async": "^1.0.9",
         "react-hook-form": "^7.6.6",
+        "react-loading-skeleton": "^2.2.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "4.0.3",
         "react-tsparticles": "^1.27.0",

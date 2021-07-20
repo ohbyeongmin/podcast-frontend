@@ -8,6 +8,7 @@ import { SearchBar } from "../../components/search-bar";
 import { useLocation } from "react-router-dom";
 import { podcastsPagenationQuery } from "../../__generated__/podcastsPagenationQuery";
 import { Pagenation } from "../../components/pagenation";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const PODCASTS_PAGENATION_QUERY = gql`
     query podcastsPagenationQuery($input: GetPodcastsPagenationInput!) {
@@ -60,7 +61,18 @@ export const PodcastList = () => {
             <div className="max-w-3xl w-full mx-auto z-10">
                 <div className="flex flex-col ">
                     <SearchBar />
-                    {!loading &&
+                    {loading ? (
+                        <SkeletonTheme color="#262626" highlightColor="#333">
+                            <p>
+                                <Skeleton
+                                    className="mt-7 mx-auto"
+                                    count={3}
+                                    duration={1}
+                                    height={150}
+                                />
+                            </p>
+                        </SkeletonTheme>
+                    ) : (
                         data?.getPodcastsPagenation.podcasts?.map((podcast) => {
                             return (
                                 <PodcastCardListener
@@ -69,7 +81,8 @@ export const PodcastList = () => {
                                     refetch={refetch}
                                 />
                             );
-                        })}
+                        })
+                    )}
                     <Pagenation
                         pathname={pathname}
                         page={page}
