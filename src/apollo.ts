@@ -17,7 +17,6 @@ const httpLink = createHttpLink({
             ? "https://podcast-backend-obm.herokuapp.com/graphql"
             : "http://localhost:4000/graphql",
 });
-
 const authLink = setContext((_, { headers }) => {
     return {
         headers: {
@@ -26,7 +25,6 @@ const authLink = setContext((_, { headers }) => {
         },
     };
 });
-
 export const client = new ApolloClient({
     link: authLink.concat(httpLink),
     cache: new InMemoryCache({

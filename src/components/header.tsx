@@ -4,15 +4,18 @@ import podcastLogo from "../images/logo.svg";
 import { Avatar } from "./avatar";
 import { authTokenVar, isloggedInVar } from "../apollo";
 import { LOCAL_STORAGE_TOKEN } from "../constants";
-
-const logoutHandler = () => {
-    isloggedInVar(false);
-    localStorage.removeItem(LOCAL_STORAGE_TOKEN);
-    authTokenVar(null);
-    window.location.href = "/";
-};
+import { useApolloClient } from "@apollo/client";
 
 export const Header: React.FC = () => {
+    const client = useApolloClient();
+
+    const logoutHandler = () => {
+        localStorage.removeItem(LOCAL_STORAGE_TOKEN);
+        isloggedInVar(false);
+        authTokenVar(null);
+        client.clearStore();
+    };
+
     useEffect(() => {
         const userBoardHandler = (e: MouseEvent) => {
             const target = e.target! as HTMLElement;
